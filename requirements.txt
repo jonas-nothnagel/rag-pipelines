@@ -52,6 +52,6 @@ llama-index-retrievers-bm25
 # WebUI
 streamlit
 
-
 ### Langchain ###
 langchain-core>=0.1.6
+langchain-huggingface
