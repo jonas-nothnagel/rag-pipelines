@@ -13,7 +13,7 @@ print(f'running on device: {device}')
 if __name__ == '__main__':
 
     # load data - need to use linux filepath syntax for running on Compute Cluster
-    corpus_df = pd.read_parquet("./autorag/data/corpus.parquet", engine='pyarrow')
+    corpus_df = pd.read_parquet("synthetic_data/corpus.parquet", engine='pyarrow')
 
     # get ENV HF Token:
     from dotenv import load_dotenv
@@ -48,6 +48,6 @@ if __name__ == '__main__':
                           distributions=distributions)
     
     #store data
-    qa_df.to_parquet('./data/evaluation/ragas_llama3_qa.parquet')
+    qa_df.to_parquet('synthetic_data/ragas_llama3_qa.parquet')
 
     print("Done!")
