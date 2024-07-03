@@ -162,3 +162,5 @@ cython_debug/
 # Others and folders
 .env
 data/
+
+
