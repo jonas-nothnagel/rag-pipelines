@@ -2,3 +2,4 @@ ragas
 langchain
 langchain-huggingface
 python-dotenv
+unstructured
