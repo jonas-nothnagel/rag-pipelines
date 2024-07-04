@@ -1,14 +1,15 @@
+import pandas as pd
 from ragas.testset.generator import TestsetGenerator
 from ragas.testset.evolutions import simple, reasoning, multi_context, conditional
 from langchain_community.document_loaders import UnstructuredMarkdownLoader
 from langchain_text_splitters import (
     TokenTextSplitter)
 
-import pandas as pd
 from langchain_huggingface import HuggingFaceEndpoint, HuggingFaceEmbeddings
 
 import os
 import re
+import torch
 
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 print(f'running on device: {device}')
