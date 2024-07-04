@@ -14,6 +14,8 @@ import torch
 import time
 import random
 import logging
+import asyncio
+
 
 
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
@@ -21,18 +23,18 @@ print(f'running on device: {device}')
 
 if __name__ == '__main__':
 
-    def make_request_with_backoff(max_retries=10, max_wait_time=300):
+    async def make_request_with_backoff(max_retries=10, max_wait_time=300):
         for attempt in range(max_retries):
             try:
                 logging.info(f"Attempt {attempt + 1} of {max_retries}")
-                testset = generator.generate_with_langchain_docs(docs, 50, distributions, raise_exceptions=False)
+                testset = await generator.generate_with_langchain_docs(docs, 50, distributions, raise_exceptions=False)
                 logging.info(f"Successfully generated {len(testset)} items")
                 return testset
             except Exception as e:
                 if "429" in str(e):
                     wait_time = min((2 ** attempt) + random.uniform(0, 1), max_wait_time)
                     logging.warning(f"Rate limit hit. Waiting {wait_time:.2f} seconds.")
-                    time.sleep(wait_time)
+                    await asyncio.sleep(wait_time)
                 else:
                     logging.error(f"Unexpected error: {str(e)}")
                     raise e
@@ -105,7 +107,7 @@ if __name__ == '__main__':
     logging.basicConfig(level=logging.INFO)
 
     # Use the function
-    testset = make_request_with_backoff()
+    testset = asyncio.run(make_request_with_backoff())
     
     testset.to_pandas()
     
