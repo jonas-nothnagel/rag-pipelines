@@ -56,7 +56,7 @@ if __name__ == '__main__':
         repo_id="meta-llama/Meta-Llama-3-70B",
         task="text-generation",
         max_new_tokens=512,
-        do_sample=False,
+        timeout=5,
         repetition_penalty=1.03,
     )
 
@@ -83,8 +83,8 @@ if __name__ == '__main__':
     # use generator.generate_with_llamaindex_docs if you use llama-index as document loader
     testset = generator.generate_with_langchain_docs(docs, 50, distributions, raise_exceptions=False) 
     testset.to_pandas()
+    
     #store data
-
     testset.to_parquet('synthetic_data/ragas_llama3_qa.parquet')
 
     print("Done!")
