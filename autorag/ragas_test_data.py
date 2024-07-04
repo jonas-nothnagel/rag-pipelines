@@ -53,10 +53,11 @@ if __name__ == '__main__':
 
     #load models
     llm = HuggingFaceEndpoint(
-        repo_id="meta-llama/Meta-Llama-3-70B",
+        repo_id="meta-llama/Meta-Llama-3-8B",
         task="text-generation",
         max_new_tokens=512,
-        timeout=5,
+        temperature = 0.8,
+        #timeout=2,
         repetition_penalty=1.03,
     )
 
