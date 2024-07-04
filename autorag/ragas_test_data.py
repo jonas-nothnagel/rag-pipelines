@@ -11,10 +11,32 @@ import os
 import re
 import torch
 
+import time
+import random
+import logging
+
+
 device = "cuda:0" if torch.cuda.is_available() else "cpu"
 print(f'running on device: {device}')
 
 if __name__ == '__main__':
+
+    def make_request_with_backoff(max_retries=5, max_wait_time=60):
+        for attempt in range(max_retries):
+            try:
+                logging.info(f"Attempt {attempt + 1} of {max_retries}")
+                testset = generator.generate_with_langchain_docs(docs, 50, distributions, raise_exceptions=False)
+                logging.info(f"Successfully generated {len(testset)} items")
+                return testset
+            except Exception as e:
+                if "429" in str(e):
+                    wait_time = min((2 ** attempt) + random.uniform(0, 1), max_wait_time)
+                    logging.warning(f"Rate limit hit. Waiting {wait_time:.2f} seconds.")
+                    time.sleep(wait_time)
+                else:
+                    logging.error(f"Unexpected error: {str(e)}")
+                    raise e
+        raise Exception("Max retries reached")
 
     # import data
     markdown_files = []
@@ -53,11 +75,9 @@ if __name__ == '__main__':
 
     #load models
     llm = HuggingFaceEndpoint(
-        repo_id="meta-llama/Meta-Llama-3-8B",
+        repo_id="meta-llama/Meta-Llama-3-70B",
         task="text-generation",
         max_new_tokens=512,
-        temperature = 0.8,
-        #timeout=2,
         repetition_penalty=1.03,
     )
 
@@ -81,8 +101,12 @@ if __name__ == '__main__':
         conditional: 0.35
     }
 
-    # use generator.generate_with_llamaindex_docs if you use llama-index as document loader
-    testset = generator.generate_with_langchain_docs(docs, 50, distributions, raise_exceptions=False) 
+    # Configure logging
+    logging.basicConfig(level=logging.INFO)
+
+    # Use the function
+    testset = make_request_with_backoff()
+    
     testset.to_pandas()
     
     #store data
