@@ -21,7 +21,7 @@ print(f'running on device: {device}')
 
 if __name__ == '__main__':
 
-    def make_request_with_backoff(max_retries=5, max_wait_time=60):
+    def make_request_with_backoff(max_retries=10, max_wait_time=300):
         for attempt in range(max_retries):
             try:
                 logging.info(f"Attempt {attempt + 1} of {max_retries}")
