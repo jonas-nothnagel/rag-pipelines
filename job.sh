@@ -10,4 +10,4 @@ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.s
 apt-get install git-lfs
 git lfs install
 # run training script unbuffered
-python -u ./autorag/ragas.py 
+python -u ./autorag/ragas_test_data.py 

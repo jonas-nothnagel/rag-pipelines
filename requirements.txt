@@ -1,6 +1,4 @@
 ragas
 langchain
 langchain-huggingface
-pandas
-re
 python-dotenv
