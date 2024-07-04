@@ -3,7 +3,6 @@
 # show output in terminal
 set -xe
 # install python packages
-pip install --no-deps autorag
 pip install -r requirements.txt
 # install git lfs
 apt-get update
@@ -11,4 +10,4 @@ curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.s
 apt-get install git-lfs
 git lfs install
 # run training script unbuffered
-python -u ./autorag/ragas_llama3_gpu.py 
+python -u ./autorag/ragas.py 

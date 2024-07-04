@@ -3,8 +3,8 @@
 set -xe
 
 srun \
-  --gpus=4 \
-  --mem=96GB \
+  --gpus=6 \
+  --mem=144GB \
   --container-image=/data/enroot/nvcr.io_nvidia_pytorch_23.06-py3.sqsh \
   --container-workdir=`pwd` \
   --container-mounts=/data/nothnagel/rag-pipelines:/data/nothnagel/rag-pipelines \
