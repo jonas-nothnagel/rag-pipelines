@@ -16,8 +16,7 @@ import random
 import logging
 
 
-
-device = "cuda:0" if torch.cuda.is_available() else "cpu"
+device = "cuda:0" if torch.cuda.is_available() else "mps"
 print(f'running on device: {device}')
 
 if __name__ == '__main__':
