@@ -4,6 +4,8 @@
 set -xe
 # install python packages
 pip install -r requirements_autorag.txt
+pip uninstall transformer-engine
+pip install transformers
 # install git lfs
 apt-get update
 curl -s https://packagecloud.io/install/repositories/github/git-lfs/script.deb.sh | bash
