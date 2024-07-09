@@ -3,7 +3,7 @@
 # show output in terminal
 set -xe
 # install python packages
-pip install -r requirements_autorag.txt
+pip install -r requirements_autorag.txt --no-warn-script-location
 pip uninstall transformer-engine
 pip install transformers
 # install git lfs
