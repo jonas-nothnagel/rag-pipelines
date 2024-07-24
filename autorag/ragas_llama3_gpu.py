@@ -31,7 +31,7 @@ if __name__ == '__main__':
     #     repetition_penalty=1.03,
     #     )
     llm = HuggingFaceEndpoint(
-      endpoint_url= "https://p2mtlct0ununp0h8.us-east-1.aws.endpoints.huggingface.cloud",
+      endpoint_url= "HF_PAID_ENDPOINT",
       task="text-generation",
       max_new_tokens=512,
       do_sample=False,

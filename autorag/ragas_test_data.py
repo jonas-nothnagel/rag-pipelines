@@ -75,11 +75,11 @@ if __name__ == '__main__':
 
     #load models
     llm = HuggingFaceEndpoint(
-        repo_id="meta-llama/Meta-Llama-3-70B",
-        task="text-generation",
-        max_new_tokens=512,
-        repetition_penalty=1.03,
-    )
+      endpoint_url= "HF_PAID_ENDPOINT",
+      task="text-generation",
+      max_new_tokens=512,
+      do_sample=False,
+      repetition_penalty=1.03)
 
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
