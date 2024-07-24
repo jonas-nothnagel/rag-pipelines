@@ -6,7 +6,7 @@ import getpass
 import os
 import torch
 
-device = "cuda:0" if torch.cuda.is_available() else "cpu"
+device = "cuda:0" if torch.cuda.is_available() else "mps"
 print(f'running on device: {device}')
 
 
@@ -23,13 +23,19 @@ if __name__ == '__main__':
         os.environ["HF_API_KEY"] = getpass("Enter HF API key:")
 
     #load models
+    # llm = HuggingFaceEndpoint(
+    #     repo_id="meta-llama/Meta-Llama-3-70B",
+    #     task="text-generation",
+    #     max_new_tokens=512,
+    #     do_sample=False,
+    #     repetition_penalty=1.03,
+    #     )
     llm = HuggingFaceEndpoint(
-        repo_id="meta-llama/Meta-Llama-3-70B",
-        task="text-generation",
-        max_new_tokens=512,
-        do_sample=False,
-        repetition_penalty=1.03,
-        )
+      endpoint_url= "https://p2mtlct0ununp0h8.us-east-1.aws.endpoints.huggingface.cloud",
+      task="text-generation",
+      max_new_tokens=512,
+      do_sample=False,
+      repetition_penalty=1.03)
 
     embeddings = HuggingFaceEmbeddings(model_name="sentence-transformers/all-mpnet-base-v2")
 
